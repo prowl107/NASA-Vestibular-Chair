@@ -1,0 +1,8 @@
+J1
+A - Power In / Motor
+B - Power In / Motor
+C...
+
+
+J2
+A...

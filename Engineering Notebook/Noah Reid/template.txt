@@ -1,3 +1,5 @@
-SEPT 16 2022 14:40- I set up GitHub and ZenHub after getting my laptop. We tried to take the bottom plate off the chair, 
-				but we need a specific allen wrench. 
+SEPT 16 2022 14:40- I set up GitHub and ZenHub after getting my laptop. We removed the bottom of the chair, and mounted it so we could look inside. I worked with Dr. Liu and Brandon in locating the wires which brought
+				power to the motor, which were located on pins A and B. 
+
+
 
