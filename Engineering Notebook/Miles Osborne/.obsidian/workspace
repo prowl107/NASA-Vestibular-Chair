@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Test Entry.md",
+            "file": "Miles Osborne Engineering Notebook Entries.md",
             "mode": "source",
             "source": false
           }
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Test Entry.md",
+                "file": "Miles Osborne Engineering Notebook Entries.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Test Entry.md",
+                "file": "Miles Osborne Engineering Notebook Entries.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Test Entry.md"
+                "file": "Miles Osborne Engineering Notebook Entries.md"
               }
             }
           }
@@ -129,5 +129,7 @@
     "collapsed": true
   },
   "active": "46f809a7858b8487",
-  "lastOpenFiles": []
+  "lastOpenFiles": [
+    "Engineering Notebook Entries.md"
+  ]
 }
