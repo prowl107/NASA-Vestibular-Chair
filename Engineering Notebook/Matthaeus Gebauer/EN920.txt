@@ -1,0 +1,13 @@
+Quick couple things today:
+
+We need to find out what the chair's input signals are, once we have that
+I think it will be more clear what we should control it with.
+
+Right now i am biased to using an fpga for connection to the chair since
+an fpga is about as veritile as you can get for hardware, however, if
+we are able to achive the I/O nessecary on a system designed for wireless
+communication, we would'nt need one.
+
+Also, I took one of the connectors that were purchased before the project which 
+has promise. With it I intend to remove some of the exterior shell so it can
+connect to the chair's ports.
