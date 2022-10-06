@@ -1,1 +1,3 @@
-Engineering Notebook Template
+10/4  
+Discussed deliverables for this week
+settled on python for our future language. 
