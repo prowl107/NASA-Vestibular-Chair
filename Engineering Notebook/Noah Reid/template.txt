@@ -3,4 +3,5 @@ SEPT 16 2022 14:40- I set up GitHub and ZenHub after getting my laptop. We remov
 SEPT 20 2022 - We mostly just discussed what types of controllers we should use, and got Dylan up to speed on what's happening with the chair. We arranged
 			to meet Friday to test the chair with a HV power supply. 
 
-
+SEPT 23 2022 - Our attempt to move the chair failed. Our dolly had a flat and the chair was far too wonky and heavy to move. In addition, it was raining
+			outside. We are going to try again Monday. I cannot be there, but Mateo has a more sturdy lift we can try.
