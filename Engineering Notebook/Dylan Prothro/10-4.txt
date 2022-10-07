@@ -1,3 +1,4 @@
 10/4  
 Discussed deliverables for this week
 settled on python for our future language. 
+I am begining the SDS document with the little we have right now.
