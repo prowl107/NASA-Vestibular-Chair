@@ -4,16 +4,37 @@
     "type": "split",
     "children": [
       {
-        "id": "46f809a7858b8487",
-        "type": "leaf",
-        "state": {
-          "type": "markdown",
-          "state": {
-            "file": "2022-10-05.md",
-            "mode": "source",
-            "source": false
+        "id": "970720e2dee23412",
+        "type": "split",
+        "children": [
+          {
+            "id": "46f809a7858b8487",
+            "type": "leaf",
+            "dimension": 80.1390268123138,
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "SRS V1.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "34f1f213fe7f5fc6",
+            "type": "leaf",
+            "dimension": 19.860973187686195,
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "2022-10-05.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
-        }
+        ],
+        "direction": "horizontal"
       }
     ],
     "direction": "vertical"
@@ -56,12 +77,34 @@
               "type": "starred",
               "state": {}
             }
+          },
+          {
+            "id": "e277af74775ef3b7",
+            "type": "leaf",
+            "state": {
+              "type": "file-tree-view",
+              "state": {}
+            }
+          },
+          {
+            "id": "8222f278b1e43e5b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "System Requirements Draft.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 187.5,
+    "collapsed": true
   },
   "right": {
     "id": "7d62ed487a88cd31",
@@ -77,7 +120,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2022-10-05.md",
+                "file": "SRS V1.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +137,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2022-10-05.md",
+                "file": "SRS V1.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,19 +160,30 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2022-10-05.md"
+                "file": "SRS V1.md"
               }
             }
+          },
+          {
+            "id": "5f7991802673ae9b",
+            "type": "leaf",
+            "state": {
+              "type": "advanced-tables-toolbar",
+              "state": {}
+            }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 100
   },
-  "active": "1b8c0168d6bed9cd",
+  "active": "46f809a7858b8487",
   "lastOpenFiles": [
+    "System Requirements Draft.md",
+    "SRS V1.md",
+    "2022-10-05.md",
     "2022-10-04.md",
     "2022-09-23.md",
     "2022-09-26.md",
