@@ -1,0 +1,16 @@
+The chair spins!
+
+After going over some options with Brandon, the controller for the motor
+looks like it should be some form of arduino which we can instruct from 
+a more fully functional computer via a serial port or micro usb. The controller
+will be small enought to house inside the chair where we can safely wire both
+power and communication.
+
+Additonally we got some suggestions from Dr. Liu for controllers and power suplies
+which turn out to be much cheaper and lower voltage than expected. 
+
+Anouther issue outside the chair that maybe worth working on is building a 
+soild base that is lifted above the ground about an inch or so. This will 
+allow for us to run cables under the chair and prevent it from tipping while 
+we test the spining functionality. We also would be able to continue to move
+the chair since this would render bolting it to the ground unnecessary.
