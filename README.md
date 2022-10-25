@@ -6,4 +6,4 @@ Our goal for the end of the year (2022) is to restore the basic hardware functio
 
 # [Budget Spreadsheet](https://docs.google.com/spreadsheets/d/1TuNtql8m7KFlO9O12HfZTUzy9b4YF-d2b1fnCBpltpo/edit?usp=sharing)
 
-# [SPRINT 1 Demo](https://docs.google.com/presentation/d/1GzDR9MJofazVPP1MhIpP6lPWvrz68VTAprLMHRDoxEk/edit#slide=id.p)
+# [SPRINT 1 Demo Presentation](https://docs.google.com/presentation/d/1GzDR9MJofazVPP1MhIpP6lPWvrz68VTAprLMHRDoxEk/edit#slide=id.p)
