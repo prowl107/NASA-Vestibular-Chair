@@ -5,3 +5,15 @@ SEPT 20 2022 - We mostly just discussed what types of controllers we should use,
 
 SEPT 23 2022 - Our attempt to move the chair failed. Our dolly had a flat and the chair was far too wonky and heavy to move. In addition, it was raining
 			outside. We are going to try again Monday. I cannot be there, but Mateo has a more sturdy lift we can try.
+
+OCT 7 2022 - We've moved the chair from Dr. French's car back into his office. We've figured out the best way to strap it down to maximize its sturdiness
+during transport. Criss-cross the straps through the slots in the chair's midsection. Now: Do we want to use the Hall Effect tachometer inside of the chair?
+Maybe it's better to use the integrated angular velocity sensors in our controller. Maybe it's cooler to use complex 70's technology.
+
+OCT 11 2022 - Virtual Meeting notes: We are going to do the blue motor controller. We are unsure of what power supply we need to buy. 
+	As far as a web interface controller, we will use a raspberry pi with at the very least a Serial communicator and at least 40 GPIO
+	pins on the board. The last necessity is to be determined by my conversation with Dylan, when I ask him what he needs to make the web
+	interface happened. We talked a lot about what exactly the shareholder wants for a form of direction indication by the person sitting
+	in the chair. Everything from the most rudimentary: Two Buttons comminucating via RC to two LEDs, to the most sophisticated: a joystick
+	which sends inputs wirelessly to a cartesian display in our program which plots the inputs over time alongside all of the other chair
+	data. There was much more in the way of discussion about other aspects, but this is what is relevant to what I was tasked to do in the sprint
