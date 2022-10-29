@@ -4,13 +4,12 @@
     "type": "split",
     "children": [
       {
-        "id": "970720e2dee23412",
-        "type": "split",
+        "id": "57de186c73d8b64d",
+        "type": "tabs",
         "children": [
           {
             "id": "46f809a7858b8487",
             "type": "leaf",
-            "dimension": 19.860973187686195,
             "state": {
               "type": "markdown",
               "state": {
@@ -21,20 +20,43 @@
             }
           },
           {
-            "id": "34f1f213fe7f5fc6",
+            "id": "c6cd0ac9ce4f0f0e",
             "type": "leaf",
-            "dimension": 80.1390268123138,
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2022-10-05.md",
+                "file": "2022-09-16.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "044f5622210774be",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "2022-10-28.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "29e56bbf3472b75e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "2022-10-25.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "direction": "horizontal"
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -52,7 +74,9 @@
             "type": "leaf",
             "state": {
               "type": "file-explorer",
-              "state": {}
+              "state": {
+                "sortOrder": "alphabetical"
+              }
             }
           },
           {
@@ -98,12 +122,11 @@
               }
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 187.5
+    "width": 394.5
   },
   "right": {
     "id": "7d62ed487a88cd31",
@@ -119,7 +142,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2022-10-05.md",
+                "file": "2022-10-25.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -136,7 +159,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2022-10-05.md",
+                "file": "2022-10-25.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -159,7 +182,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2022-10-05.md"
+                "file": "2022-10-25.md"
               }
             }
           },
@@ -172,22 +195,23 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
-    "width": 100
+    "width": 425.5
   },
-  "active": "34f1f213fe7f5fc6",
+  "active": "29e56bbf3472b75e",
   "lastOpenFiles": [
-    "SRS V1.md",
-    "System Requirements Draft.md",
-    "2022-10-05.md",
-    "2022-10-04.md",
+    "2022-10-28.md",
+    "2022-10.md",
+    "2022-09-16.md",
     "2022-09-23.md",
     "2022-09-26.md",
-    "2022-09-16.md",
+    "2022-10-04.md",
+    "2022-10-05.md",
+    "2022-10-11.md",
     "Overview.md",
-    "Engineering Notebook Entries.md"
+    "SRS V1.md"
   ]
 }
