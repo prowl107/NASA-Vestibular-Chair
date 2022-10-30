@@ -10,6 +10,7 @@
 | Name                     | Date    | Reason          | Initials | Version |
 | ------------------------ | ------- | --------------- | -------- | ------- |
 | Initial Draft (V1 Draft) | 10/7/22 | Initial Release | MO       | 0.1     | 
+| V2 Draft WIP |  10/30/22 | 10/30/22 | Update system requirements | 0.11   |  
 
 ## Table of Contents:
 
@@ -38,8 +39,9 @@
     - [3.1 Chair/Motor Control](#31-chairmotor-control)
     - [3.2 Data Acquisition](#32-data-acquisition)
     - [3.3 User Input/Feedback](#33-user-inputfeedback)
-    - [3.4 Web Interface](#34-web-interface)
-    - [3.5 Controller Requirements](#35-controller-requirements)
+    - [3.4 Proctor Requirements](#34-proctor-requirements)
+    - [3.5 Web Interface](#35-web-interface)
+    - [3.7 Controller Requirements](#37-controller-requirements)
   - [4. Hardware Requirements](#4-hardware-requirements)
   - [5. Other Nonfunctional Requirements](#5-other-nonfunctional-requirements)
   - [6. Appendix](#6-appendix)
@@ -110,7 +112,7 @@ The web interface is the medium where the proctor can control the chair for the 
 
 
 ## 2.6 User Documentation
-*Nothing to list at this time*
+*Test proctor* Shall have a standard operating procedure (SOP) to adhere to during operation of the chair. This will be completed prior to the official release of this document. 
 
 ## 2.7 Assumptions and Dependencies
 *Nothing to list at this time*
@@ -124,59 +126,68 @@ Section 3 covers information regarding the usage and core functionality of the s
 | SYS-1  | The system shall allow the chair to spin upto a specified RPM determined by the proctor                                   |
 | SYS-2  | After a specified duration set by the operator/proctor, the chair should enter a free coast state                         |
 | SYS-3  | The system should allow the chair to spin in either clockwise or counterclockwise directions                              |
-| SYS-4  | The system shall have a "soft" kill switch that will allow the chair to "free coast" down to 0 rpm                        |
-| SYS-5  | The system shall have a mechanical kill switch that will bring the chair to stop faster than the soft switch              |
-| SYS-6  | The system should adjust voltage to the motors in response to the user's weight in order to maintain the desired rate/RPM |
-| SYS-7  | The system shall not exceed 3 RPM at any point during its operation                                                       |
+| SYS-4  | The system shall have two "soft" kill switches that will allow the chair to "free coast" down to 0 rpm                        |
+| SYS-5 | One of the "soft" kill switches shall be located on the chair in a position that is physically accessible to the user at all times | 
+| SYS-6 | The control interface support at least one of the "soft" kill switches that the protcor can utilize at any time |
+| SYS-7  | The system shall have a "hard" mechanical kill switch that will disable power delivery to the chair              |
+| SYS-8 | The system shall have a mechanical switch that will enable/disable power delivery to the chair |
+| SYS-9  | The system should adjust voltage to the motors in response to the user's weight in order to maintain the desired rate/RPM |
+| SYS-10  | The system shall not exceed 3 RPM at any point during its operation                                                       |
 
 ### 3.2 Data Acquisition
 | REQ ID | Requirement                                                                                                                                |
 | ------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| SYS-8  | The system shall record chairs current position (steady state)                                                                             |
-| SYS-9  | The system shall record the desired rpm set by the proctor                                                                                 |
-| SYS-10 | The system shall record the rpm that the chair is currently spinning at                                                                    |
-| SYS-11 | The system shall record the time elapsed during the current test sequence                                                                  |
-| SYS-12 | When the user indicates via the bi-directional control method, the system shall record the total time the user indicates they are spinning |
-| SYS-13 | When the user indicates via the bi-directional control method, the system shall record the direction they think they are spinning in       |
-| SYS-14 | When the user indicates via the bi-directional control method, the system shall record timestamps of when the button is triggered          |
-| SYS-15 | The system shall have the ability to export data in a human readable format                                                                |
-| SYS-16 | The system shall record acceleration data                                                                                                  |
-| SYS-17 | The system shall record tachometer data                                                                                                    |
-| SYS-18 | The system shall record the current direction of the chair                                                                                 |
-| SYS-19 | The system shall record all commands sent to the controller                                                                                |
+| SYS-11  | The system shall record chairs current position (steady state)                                                                             |
+| SYS-12  | The system shall record the desired rpm set by the proctor                                                                                 |
+| SYS-13 | The system shall record the rpm that the chair is currently spinning at                                                                    |
+| SYS-14 | The system shall record the time elapsed during the current test sequence                                                                  |
+| SYS-15 | When the user indicates via the bi-directional control method, the system shall record the total time the user indicates they are spinning |
+| SYS-16 | When the user indicates via the bi-directional control method, the system shall record the direction they think they are spinning in       |
+| SYS-17 | When the user indicates via the bi-directional control method, the system shall record timestamps of when the button is triggered          |
+| SYS-18 | The system shall have the ability to export data in a human readable format                                                                |
+| SYS-19 | The system shall record acceleration data                                                                                                  |
+| SYS-20 | The system shall record tachometer data                                                                                                    |
+| SYS-21 | The system shall record the current direction of the chair                                                                                 |
+| SYS-22 | The system shall record all commands sent to the controller                                                                                |
 
 ### 3.3 User Input/Feedback
 | REQ ID | Requirement                                                                                                          |
 | ------ | -------------------------------------------------------------------------------------------------------------------- |
-| SYS-20 | The system shall support suser input from a bi-directional control interface                                         |
-| SYS-21 | The system shall allow for the user to indicate what direction they are spinning via a bi-directional control method |
-| SYS-22 | The proctor shall be able to start a sequence or test until a unique button/switch is pressed                        |
-| SYS-23 | The system shall record intermediate values for the direction indicated                                              |
-| SYS-24 | The system must interface with a wireless bi-directional controller such as a joystick or button                     |
+| SYS-23 | The system shall support suser input from a bi-directional control interface                                         |
+| SYS-24 | The system shall allow for the user to indicate what direction they are spinning via a bi-directional control method |
+| SYS-25 | The system shall record intermediate values for the direction indicated                                              |
+| SYS-26 | The system must interface with a wireless bi-directional controller such as a joystick or button                     |
+| SYS-27 | The user shall be able to press the "soft" kill switch during operation to stop the chair in the event of an emergency | 
 
-### 3.4 Web Interface
+
+### 3.4 Proctor Requirements
+| REQ ID | Requirement                                                                                                          |
+| ------ | -------------------------------------------------------------------------------------------------------------------- |
+| SYS-28 | The proctor shall only be able to actuate the chair or start a test after a unique button/switch is pressed (arming switch) | 
+| SYS-29 | The proctor shall be able to press a soft kill switch from their controll interface | 
+
+### 3.5 Web Interface
 *The system shall have a web based interface that allows the proctor to control the following: *
 
 | REQ ID | Requirement                                                                      |
 | ------ | -------------------------------------------------------------------------------- |
-| SYS-25 | The web interface shall allow the operator to add different test sequences       |
-| SYS-26 | The web interface shall allow the proctor to input the user's weight             |
-| SYS-27 | The web interface shall feature a unique button to select the test sequence      |
-| SYS-28 | The web interface shall have a unique button to start the selected test sequence |
-| SYS-29 | The web interface shall have a text box to enter the duration of the test        |
-| SYS-30 | The web interface shall display stored test sequences from a dropdown menu       |
+| SYS-30 | The web interface shall allow the operator to add different test sequences       |
+| SYS-31 | The web interface shall allow the proctor to input the user's weight             |
+| SYS-32 | The web interface shall feature a unique button to select the test sequence      |
+| SYS-33 | The web interface shall have a unique button to start the selected test sequence |
+| SYS-34 | The web interface shall have a text box to enter the duration of the test        |
+| SYS-35 | The web interface shall display stored test sequences from a dropdown menu       |
 
-### 3.5 Controller Requirements
+### 3.7 Controller Requirements
 
 | REQ ID| Requirement                                                                                       |
 | ------ | ------------------------------------------------------------------------------------------------- |
-| SYS-31 | The controller module shall have wifi capabilities                                                |
-| SYS-32 | The controller module shall support serial transmission of data to a receiver over USB            |
-| SYS-33 | The controller module shall support serial receiving of data from a host                          |
-| SYS-34 | The controller module shall be able to read analog values                                         |
-| SYS-35 | The controller module shall have sufficient I/O (GPIO) to interface with a mechanical kill switch |
-| SYS-36 | The controller module shall support the I2C protocol for communicating with external peripherals  |
-|        |                                                                                                   |
+| SYS-36 | The controller module shall have wifi capabilities                                                |
+| SYS-37 | The controller module shall support serial transmission of data to a receiver over USB            |
+| SYS-38 | The controller module shall support serial receiving of data from a host                          |
+| SYS-39 | The controller module shall be able to read analog values                                         |
+| SYS-40 | The controller module shall have sufficient I/O (GPIO) to interface with a mechanical kill switch |
+| SYS-41 | The controller module shall support the I2C protocol for communicating with external peripherals  |
 
 ## 4. Hardware Requirements
 *Nothing listed at this time*
