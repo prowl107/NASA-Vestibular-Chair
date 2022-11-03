@@ -1,0 +1,13 @@
+November 1st 2022 ----  Today the group met in the classroom to discuss the developments that Miles and I got from Dr. Liu and Dr. French on 10-31,
+                        as well as talking about where the project was heading.
+                        Overall, the decision was to stick with the initial plan of generating a controller for interfacing with the chair, however
+                        the implementation would only really be able to be tested in the lab as it was possible for us to control the voltage supplied to the chair
+                        without a base present, without worry of the chair being overran or falling over as it was a controlled environment.
+                        
+                        After that meeting, the group went to the lab to discuss some more of the hardware requirements and finalize some sprint goals. 
+                        Brandon and I decided that attempting to power the chair with the interim power supply Dr. Liu supplied us with to see if it was possible
+                        would be a good use of time just to make some progress. Miles and Brandon went to the Lehman building to solder the motor controller connections
+                        and then upon their return we connected the wires to the chair and motor controller.
+                        
+                        After confirming which connections were the correct one's for the motor of the chair, we were able to make the chair rotate with the use
+                        of the motor controller.
