@@ -1,0 +1,9 @@
+We discussed the next move going forward now that the chair is back in the lab,
+we have a budget and a whole bucnh of stuff that needs to be ordered for sprint 2.
+with that being said, now its time to wait for a few components to arrive such as 
+the motor controller.
+
+also further we require that the subject in the chair is given a device to indicate
+which way they are spinning.
+
+
