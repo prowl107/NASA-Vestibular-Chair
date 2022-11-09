@@ -1,0 +1,9 @@
+Today I got the polou controller software that came with the motor controller
+installed on my PC, we did a little test to see if it worked and tested it 
+on a small motor that Brandon had. This was rather easy to do and is proof 
+of concept for powering the chair. We do not have a power supply readily 
+available for the chair as of now. 
+
+Dr. Liu does have a power supply its just matter of getting it and our team 
+being able to meet soon. so fare the sprint goal is within reach assuming 
+we get that power supply.

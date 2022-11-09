@@ -1,0 +1,15 @@
+Another hurricane is gonna go through and prevent us meeting 
+thursday or friday. We had a sprint retrospective today, and 
+so far we achived our goals for this sprint, at least the 
+important ones such as our deliverables and powering the 
+chair using the motor controller.
+
+Next sprint we have to rethink our plan since the chair 
+will have limited access after the 15th. Right now mostly 
+mostly positive improvement has happened between sprint 1
+and sprint 2. Just need to have more structured meeting times
+we tend to talk about that the day of. 
+
+Other than that I need to remember to actually post these
+notebooks more regularly, but most of the issues we have 
+run into are external.
