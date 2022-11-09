@@ -1,0 +1,14 @@
+Due to the changing requirements in hardware, 
+A hardware component is the lowest level of design granularity in the system. 
+
+•	The current power input requirements determined for the chair are an input of 24 DC voltage. 
+
+•	Serial port connections
+
+•	Processor requirements (speed and functionality)
+
+•	Graphical representation depicting the number of hardware items (for example, monitors, printers, servers, I/O devices), and the relative positioning of the components to each other
+
+•	10 ft Cat6 Ethernet Cable, Cat 6 RJ45 Network Patch Cord Male to Female Connector
+
+•	The user controller will have components to receive serial data as well as adjust the voltage for the chair.
