@@ -1,0 +1,6 @@
+November 21st, 2022 ----------- Miles and I met on discord to determine the initial outline for tasks that needed to be completed during the sprint.
+                                Among these was the need to keep documentation current, instead of waiting until the back end of the sprint to update it.
+                                Along with that was the setup for the hardware emulation test, and discussion of what data would be needed to have it work appropriately.
+                                This includes voltage readouts from the chair as it spins at the desired RPM and scaling of that to be used outside of the testing of the chair.
+                                Another task was to create the rudimentary controller that will serve as the base for the full controller we plan to create during the next semester.
+                                After determining these tasks, the two of us did a quick run down of who would be responsible for which tasks and how they should look by the end of the sprint.
