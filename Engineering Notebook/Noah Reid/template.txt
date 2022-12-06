@@ -17,3 +17,19 @@ OCT 11 2022 - Virtual Meeting notes: We are going to do the blue motor controlle
 	in the chair. Everything from the most rudimentary: Two Buttons comminucating via RC to two LEDs, to the most sophisticated: a joystick
 	which sends inputs wirelessly to a cartesian display in our program which plots the inputs over time alongside all of the other chair
 	data. There was much more in the way of discussion about other aspects, but this is what is relevant to what I was tasked to do in the sprint
+
+OCT 13 2022 - I discussed what motor controller we should purchase with the group and recommended the blue Polulu option. We also worked on our presentation
+
+NOV 1 2022 - The chair finally spun with the motor controller today. I worked on using the software on the board to operate the chair.
+
+NOV 5 2022 - I worked with Mateo on trying to flesh out hardware requirements for our documentation.
+
+NOV 8 2022 - We met, but not much got done. It was rainy and not everyone was here.
+
+NOV 17 2022 - I worked on the presentation with the rest of the group.
+
+NOV 21 2022 - We had a virtual meeting concerning documentation.
+
+DEC 1 2022 - Miles and I met in the lab to discuss a plan regarding making a controller and potentially housing
+
+DEC 6 2022 - I worked with Miles and Mateo to try to get our controller working so we could make a demo for our presentation later today.
