@@ -16,7 +16,7 @@ Alternatively, you can use a git GUI client to manage your copy of the project.
 ## Usage
 Open Visual Studio Code (or your text editor/IDE of choice) and then open the PlatformIO menu.
 Select "Open Project" and navigate to where the repo is located on your device.
-Open the PlatformIO project with the spectre-module root folder selected.
+Open the PlatformIO project with the NASA-Vestibular-Chair root folder selected.
 Have fun :)
 
 ## Presentations
