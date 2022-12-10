@@ -20,3 +20,7 @@ NOV 8 2022 14:30 - created a high level fist schematic of connections for chair,
 NOV 29 2022 - while testing the speed controls of the motor controller and chair, Created table to relate power output (Volts, current) to the motor output as a percenetage and in the future an RPM Value. 
 
 DEC 1 2022  - dissassembled built in tachometer/potentiometer and created arduino script to read output values. next step will be to get algorithm to convert rate of change in pot values to RPM speed 
+
+DEC 6 2020 - created circuit and arduinol script to control chair motor using potentiometer
+
+DEC 8 2022 - Researching ways to get an RPM output from built in tachometer values
