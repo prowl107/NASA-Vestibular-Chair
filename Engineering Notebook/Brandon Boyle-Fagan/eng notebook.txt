@@ -16,3 +16,7 @@ OCT 27 2022 - we were able to test the motor controller functions using a 6V ste
 NOV 1 2022 14:30 - Miles and I soldered the connectors onto the motor contorller. Kent, Matthaeus and I were able to get the chair wired and the program running to test the movement of the chair with our purchased motor controller. 
 
 NOV 8 2022 14:30 - created a high level fist schematic of connections for chair, and various controllers. 
+
+NOV 29 2022 - while testing the speed controls of the motor controller and chair, Created table to relate power output (Volts, current) to the motor output as a percenetage and in the future an RPM Value. 
+
+DEC 1 2022  - dissassembled built in tachometer/potentiometer and created arduino script to read output values. next step will be to get algorithm to convert rate of change in pot values to RPM speed 
