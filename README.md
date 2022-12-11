@@ -20,6 +20,6 @@ Open the PlatformIO project with the NASA-Vestibular-Chair root folder selected.
 Have fun :)
 
 ## Presentations
-- [SPRINT 1 Demo Presentation](https://docs.google.com/presentation/d/1GzDR9MJofazVPP1MhIpP6lPWvrz68VTAprLMHRDoxEk/edit#slide=id.p)
-- [Sprint 2 Demo Presentation]()
-- [End of Fall 2022 Semester Presentation]()
+- [SPRINT 1 Demo Presentation](https://docs.google.com/presentation/d/1b5IdnyLSNwiTLVy-gZ9E79ZbYqnyJbTD/edit?usp=sharing&ouid=115407868332019012098&rtpof=true&sd=true)
+- [Sprint 2 Demo Presentation](https://docs.google.com/presentation/d/1l_CmvSCrBEOVg_VuYpDZWNs5qSBOpJvT/edit?usp=sharing&ouid=115407868332019012098&rtpof=true&sd=true)
+- [End of Fall 2022 Semester Presentation](https://docs.google.com/presentation/d/1xmUZu0XUEXimdjX_mnKVwzS-KKVoy4oE/edit?usp=sharing&ouid=115407868332019012098&rtpof=true&sd=true)
