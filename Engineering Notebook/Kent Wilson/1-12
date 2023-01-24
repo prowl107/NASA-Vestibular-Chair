@@ -1,1 +1,7 @@
-January 12 2023 14:30 --
+January 12 2023 14:30 --    The group met in the COAS lab after meeting in the senior design class and continued work on the external controller.
+
+                            Brandon and I worked on checking which wires from the internal of the chair were responsible for power as to remove them from the 
+                            current ports and replace them with the ethernet ports we planned to use to negotiate power to the chair from the power supply.
+                            
+                            Miles and Matthaeus worked on the software side of things, with Matthaeus working on the wireless receiver transmission, and Miles
+                            working on the coding of the state machine for the buttons that the controller utilizes to communicate power limits to the chair.
