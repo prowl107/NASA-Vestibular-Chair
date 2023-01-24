@@ -1,1 +1,6 @@
-January 24 2023 14:30 --
+January 24 2023 14:30 --      The group met in the COAS lab to attempt to finish working on the patient controller due to it being needed for use by Dr. French
+                              on thursday, that being 1-26.
+                              We also went over the vision statement for the semester, along with determining appropriate tasks for the backlog. This included things 
+                              such as documentation, web interface application, defining the new budget, etc.
+                              Brandon and Dylan worked on determining how to use the tachometer that was removed from the chair to determine appropriate RPM and communicate
+                              that value to a host console.
