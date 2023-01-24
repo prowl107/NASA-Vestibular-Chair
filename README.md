@@ -2,7 +2,7 @@
 This project is designed with the goal of restoring the NASA Vestibular Chair. The chair was actively involved in research at NASA and was recently acquired by Embry-Riddle Aeronautical University faculty. This involves restoring the basic functionality and then adding software functionality to improve the ease of use.
 
 ## Vision Statement
-Our goal for the end of the year (2022) is to restore the basic hardware functionality to the chair. This consists of ensuring the system can reach a specified RPM, hold that specified RPM for a set duration and allow the servos to gradually slow down to idle. If time permits, we would begin integrating more modern software and hardware tools to improve the "quality of life" features of the chair. This includes a web interface, custom test profiles/sequences, and ability to read and store sensor data from the chair. 
+Our goal for the end of the spring semester (2023) is to accurately introduce a web-based interface into the external controller along with defining more accurate data acquisition over wireless connection. This consists of encoding a Raspberry Pi to allow for communication of testing procedure specifications to the microcontroller opposed to having manual input. The data acquisition will be achieved through the use of Bluetooth modules present in the microcontroller to communicate data to a host console wirelessly. If time permits, we would begin refining and updating the current design of the external controller for better usability and aesthetic. 
 
 ## Installation
 ```bash
