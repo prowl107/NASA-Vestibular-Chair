@@ -42,22 +42,19 @@ uint32_t rpm_encoder_prev_state = analogRead(A0);
 uint32_t rpm_encoder_new_state;
 int32_t speed_target_scaled;
 
-/*************************************************************************
-* Direction control
-* 0 - Clockwise (CW) ~ default
-* 1 - Counterclockwise (CCW)
-*************************************************************************/ 
-uint8_t direction = CLOCKWISE;
 /* Wireless Communication parameters */
 /*************************************************************************
 * Expected Messages: 
-* No button-press: 0, no message should be recieved in this case
-* Left button press: 1
-* Right button press: 2
-* Both button presses: 3
+* No button                   0
+* Left button:                1
+* Right button:               2
+* Both button:                3
+* Patient emergency button:   4
 *************************************************************************/
-uint8_t *msg;
-uint8_t msg_len = sizeof(msg);
+char msg[5];
+uint8_t msg_len = 6;
+String data_log[5]; 
+uint8_t msg_index = 0;
 
 // /*************************************************************************
 // * Initialize Local Variables
@@ -71,6 +68,9 @@ test_time_elapsed = 0;
 state_index = SYS_INIT;
 current_speed = 0;
 speed_target = 0;
+
+if (!receiver.init())
+Serial.println("init failed");
 
 /*************************************************************************
 * Start system Operation:
@@ -87,22 +87,12 @@ while(1){
 switch (fsm.getCurrentState())
 {
 case SYS_INIT:
-// pinMode(DISARMED_LED, OUTPUT);
-// pinMode(ARMED_LED, OUTPUT);
-// digitalWrite(DISARMED_LED, HIGH);
-// digitalWrite(ARMED_LED, HIGH);
-// delay(1000);
-// digitalWrite(DISARMED_LED, LOW);
-// digitalWrite(ARMED_LED, LOW);
   Serial.println("NASA Vestibular Chair -- Loading interface...");
-  Wire.begin(); 
-  Wire.setClock(400000);
+  // Wire.begin(); 
+  // Wire.setClock(400000);
 
   /* Initialize I/O Pins */
   sys_io_init();
-
-  /* Initialize emergency stop button */
-  // attachInterrupt(digitalPinToInterrupt(ESTOP_BTN), emergency_stop, CHANGE);
 
   /* Initialize motor controller & interface */
   smc.exitSafeStart();
@@ -111,13 +101,6 @@ case SYS_INIT:
   sys_display_init(&lcd);
 
   /* Initialize web interface */
-
-  /* Initialize connection to wireless peripheral */
-  receiver.init();//
-
-  /* System disarmed status */
-  // digitalWrite(DISARMED_LED, HIGH);
-  // digitalWrite(ARMED_LED, HIGH);
 
   /* Transition to PROCTOR_OP_RPM */
   state_index = PROCTOR_OP_RPM;
@@ -131,11 +114,16 @@ case PROCTOR_OP_RPM:
   speed_target = smc.controlPot(); /* NOTE: pass rpm_encoder target to smc.setMotorSpeed() during operation*/
   speed_target_percent = (speed_target/3200.0)*100; 
   speed_target_scaled = round((0.015833333333333335 * speed_target) - 8.916666666666671);
-      Serial.print("speed_target_scaled: ");
-    Serial.println(speed_target_scaled);
-  if(speed_target_scaled < 0)
+    //   Serial.print("speed_target_scaled: ");
+    // Serial.println(speed_target_scaled);
+  if(speed_target_scaled < 12)
   {
-    speed_target_scaled = 0;
+    speed_target_scaled = 12;
+  }
+
+  if(speed_target_scaled > 16)
+  {
+    speed_target_scaled = 16;
   }
 
   lcd.setCursor(strlen("Speed(RPM): "), 0);
@@ -168,37 +156,6 @@ case PROCTOR_OP_RPM:
   }
 
   break;
-
-// case PROCTOR_OP_DIRECTION:
-
-// if(smc.controlPot() < 1600)
-// {
-//   direction = COUNTERCLOCKWISE;
-//   lcd.setCursor(strlen("Spin: "),1);
-//   lcd.print("CClockwise");
-// }else if (smc.controlPot() >= 1601) {
-//   direction = CLOCKWISE;
-//   lcd.setCursor(strlen("Spin: "),1);
-//   lcd.print("Clockwise  ");
-// }
-
-// /************************************************************************
-// * @todo Update display with new display
-// ************************************************************************/
-// lcd.setCursor(0,1);
-// lcd.print("Spin: ");
-//  if (digitalRead(CONFIRMATION_BTN) == LOW && digitalRead(REJECT_BTN) == HIGH)
-//   {
-//     /* Wait until button depress */
-//     while(digitalRead(CONFIRMATION_BTN) == LOW);
-//     state_index = PROCTOR_OP_TIME;
-//   }else if(digitalRead(CONFIRMATION_BTN) == HIGH && digitalRead(REJECT_BTN) == LOW) /* Return to previous state */
-//   {
-//     /* Wait until button depress */
-//     while(digitalRead(REJECT_BTN) == LOW);
-//     state_index = PROCTOR_OP_RPM;
-//   }
-// break;
 
 case PROCTOR_OP_TIME: 
   /***********************************************************************
@@ -233,9 +190,9 @@ case PROCTOR_OP_TIME:
     state_index = PROCTOR_OP_RPM;
   }
 
-  Serial.print("\tTime: ");
-  Serial.print("speed_target_scaled: ");
-  Serial.println(test_target_time);
+  // Serial.print("\tTime: ");
+  // Serial.print("speed_target_scaled: ");
+  // Serial.println(test_target_time);
   break;
 
 case SYS_ARM_HOLD:
@@ -245,7 +202,7 @@ case SYS_ARM_HOLD:
   {
     lcd.print("        ");
     lcd.setCursor(strlen("Status: "), 2);
-    lcd.print("Disarmed");
+    lcd.print("DISARMED");
     state_index = PROCTOR_OP_TIME;    
     /* Wait until button depress */
     while(digitalRead(REJECT_BTN) == LOW);
@@ -257,7 +214,7 @@ case SYS_ARM_HOLD:
   {
     lcd.print("        ");
     lcd.setCursor(strlen("Status: "), 2);
-    lcd.print("Disarmed");
+    lcd.print("DISARMED");
     state_index = SYS_ARM_HOLD;
     digitalWrite(DISARMED_LED, HIGH);
     digitalWrite(ARMED_LED, LOW);
@@ -266,7 +223,7 @@ case SYS_ARM_HOLD:
   }else if(digitalRead(ARMING_SWITCH_1) == LOW){
     lcd.print("        ");
     lcd.setCursor(strlen("Status: "), 2);
-    lcd.print("Armed");
+    lcd.print("ARMED");
     digitalWrite(DISARMED_LED, LOW);
     digitalWrite(ARMED_LED, HIGH);
   
@@ -289,17 +246,17 @@ case ARMED_OPERATION:
 
   lcd.setCursor(0,3);
   lcd.print("Time left: ");
-  /*********************************************************************
-  * Gradually increase RPM until target is reached
-  **********************************************************************/
+
  while(state_index == ARMED_OPERATION)
  {
   /*********************************************************************
   * Emergency Stop Detected --> Stop Test Immediately
   **********************************************************************/
-  if(digitalRead(ESTOP_BTN) == LOW)
+  if(digitalRead(ESTOP_BTN) == LOW  || strstr(msg, "STOP") )
   {
     emergency_stop();
+    Serial.println("EOF");
+    memset(msg, '\0', 6);
     state_index = SYS_INIT;
     break;
   }
@@ -310,38 +267,30 @@ case ARMED_OPERATION:
   * 
   * @TODO: Send data to PC! (pyserial)
   **********************************************************************/
-  //receiver.recv(msg, &msg_len); 
+  if (receiver.recv(msg, &msg_len)) // Non-blocking
+  {
+  int i;
+  // *msg = 0;multi_btn_signalp
+  // Serial.println("DATA_LOG:");
+  Serial.print((test_time_elapsed - test_start_time));
+  // delay(500);
+  Serial.print(",");
+  // delay(500);
+  Serial.println((char*)msg);
+  }
+  // data_log[msg_index] = (test_time_elapsed - test_start_time) + "," + (char*)msg;
+  // Serial.println(data_log[msg_index]);
 
-  //  if(test_target_time+1000 > (test_time_elapsed - test_start_time))
-  // {
-  //       if(current_speed < speed_target)
-  //       {
-  //         smc.setMotorSpeed(current_speed);
-  //         current_speed+=2;
-  //         // state_index = ARMED_TARGET_REACHED;
-  //       }else{
-  //         smc.setMotorSpeed(current_speed);
-  //         // state_index = ARMED_TARGET_REACHED;
-  //       }
 
-  //     // case COUNTERCLOCKWISE:
-  //     //   if(-current_speed > -speed_target)
-  //     //   {
-  //     //     smc.setMotorSpeed(-current_speed);
-  //     //     current_speed+=2;
-  //     //     // state_index = ARMED_TARGET_REACHED;
-  //     //   }else{
-  //     //     smc.setMotorSpeed(-current_speed);
-  //     //     // state_index = ARMED_TARGET_REACHED;
-  //     //   }
-  //   }
-
+  /******************************multi_btn_signalp***************************************
+  * Gradually increase RPM until target is reached
+  **********************************************************************/
   if(test_target_time+1000 > (test_time_elapsed - test_start_time))
   {
     if(current_speed < speed_target)
     {
     smc.setMotorSpeed(current_speed);
-    current_speed+=3;
+    current_speed+=2;
     // state_index = ARMED_TARGET_REACHED;
     }else{
       smc.setMotorSpeed(current_speed);
@@ -396,7 +345,18 @@ case ARMED_TARGET_REACHED:
     * 
     * @TODO: Send data to PC! (pyserial)
     **********************************************************************/
-    receiver.recv(msg, &msg_len); 
+  if(receiver.recv(msg, &msg_len))
+  {
+    int i;
+  // *msg = 0;
+  // Serial.println("DATA_LOG:");
+  Serial.print((test_time_elapsed - test_start_time));
+  // delay(500);
+  Serial.print(",");
+  // delay(500);
+  Serial.println((char*)msg);
+  }
+    
     smc.setMotorSpeed(current_speed);
     delay(200);
     }
@@ -408,6 +368,7 @@ case ARMED_TARGET_REACHED:
 lcd.setCursor(0,2);
 lcd.print("Saving data to file");
 /* Insert end of file signal */
+Serial.println("EOF");
 delay(5000);
 lcd.setCursor(0,3);
 lcd.print("Done");
@@ -433,11 +394,11 @@ default:
 /*************************************************************************
 * Update FSM
 *************************************************************************/
-Serial.print("Current State index: ");
-Serial.print(fsm.getCurrentState());
-Serial.print("\t");
-Serial.print("Next state index: ");
-Serial.println(state_index);
+// Serial.print("Current State index: ");
+// Serial.print(fsm.getCurrentState());
+// Serial.print("\t");
+// Serial.print("Next state index: ");
+// Serial.println(state_index);
 fsm.setCurrentState(state_index);
 delay(25); 
 }
@@ -486,193 +447,9 @@ void emergency_stop()
     lcd.setCursor(0,0);
     lcd.print("EMERGENCY STOP");
     smc.eStop();
-  delay(2000);
-  fsm.setCurrentState(SYS_INIT);
+    delay(2000);
+    fsm.setCurrentState(SYS_INIT);
 }
-
-#if 0
-/*************************************************************************
-* Begin State Machine:
-*
-* States:
-* 1 - SYS_INIT
-* 2 - PROCTOR_OP_RPM 
-* 3 - PROCTOR_OP_TIME
-* 4 - SYS_ARM_HOLD
-* 5 - ARMED_OPERATION
-* 6 - ARMED_TARGET_REACHED
-**************************************************************************/
-void begin_FSM()
-{
-
-/*************************************************************************
-* Local Variables
-**************************************************************************/
-SYS_STATES_T state = SYS_INIT;                            /* FSM State managements */
-uint32_t rpm; 
-uint32_t rpm_encoder_target;
-uint32_t rpm_encoder_val = 0;
-uint32_t rpm_encoder_prev_state = analogRead(A0);
-uint32_t rpm_encoder_new_state;
-
-uint32_t time_encoder_val;
-uint32_t time_encoder_prev_state = analogRead(A1);
-uint32_t time_encoder_new_state;
-
-long test_start_time;                                     /* Test sequence duration */
-long test_target_time;
-long test_time_elapsed;
-
-while(1)
-{
-switch (state)
-{
-  case (SYS_INIT):
-  Serial.println("NASA Vestibular Chair -- Loading interface...");
-
-  /* Initialize all peripherals */
-  display_init();
-
-  //Motor controller initialization here:
-
-  /* Transition to PROCTOR_OP_TIME state */
-  rpm_encoder_new_state = analogRead(A0);
-  state = PROCTOR_OP_RPM;
-  break;
-
-  case (PROCTOR_OP_RPM):
-  Serial.println("PROCTOR_OP_RPM");
-  while(1)
-  {
-    /* Transition to next state if unique button press*/
-    if(digitalRead(2) == HIGH)
-    {
-      state = PROCTOR_OP_TIME;
-    }
-
-    rpm_encoder_new_state = analogRead(A0);
-    if(rpm_encoder_new_state+2 < rpm_encoder_prev_state)
-    {
-      Serial.print("Decrase\t");
-      if(rpm_encoder_target > 0)
-      {
-        rpm_encoder_target-=1;
-      }
-      rpm_encoder_prev_state = rpm_encoder_new_state;
-    }else if(rpm_encoder_new_state-2 > rpm_encoder_prev_state)
-    {
-      Serial.print("Increase\t");
-      if(rpm_encoder_target < 60)
-      {
-        rpm_encoder_target+=1;
-      }
-      rpm_encoder_prev_state = rpm_encoder_new_state;
-    }else{
-      Serial.print("No change\t");
-    }
-    rpm_disp.printNumber(rpm_encoder_target);
-    rpm_disp.writeDisplay();
-    Serial.println(analogRead(A0));
-    delay(500);
-  }
-
-  break;
-
-  case (PROCTOR_OP_TIME):
-  
-    if(digitalRead(3) == HIGH)
-    {
-      state = SYS_ARM_HOLD;
-    }
-
-    time_encoder_new_state = analogRead(A0);
-    if(time_encoder_new_state+3 < time_encoder_prev_state)
-    {
-      Serial.print("Decrase\t");
-      if(time_encoder_val > 0)
-      {
-        time_encoder_val-=1;
-      }
-      time_encoder_prev_state = time_encoder_new_state;
-    }else if(time_encoder_new_state-3 > time_encoder_prev_state)
-    {
-      Serial.print("Increase\t");
-      if(time_encoder_val < 60)
-      {
-        time_encoder_val+=1;
-      }
-      time_encoder_prev_state = time_encoder_new_state;
-    }else{
-      Serial.print("No change\t");
-    }
-    time_disp.printNumber(time_encoder_val);
-    time_disp.writeDisplay();
-    Serial.println(analogRead(A0));
-
-    /*********************************************************************
-    * @todo Set the test duration time witht the correct units 
-    **********************************************************************/
-    test_target_time = 0;
-    delay(500);
-
-  break;
-
-  case(SYS_ARM_HOLD):
-  while(!digitalRead(4))
-  {
-    state = SYS_ARM_HOLD;
-    test_start_time = millis();
-  }
-  state = ARMED_OPERATION;
-  
-  break;
-
-  case(ARMED_OPERATION):
-  while(!(test_time_elapsed >= test_target_time) && !(rpm_encoder_val >= rpm_encoder_target))
-  {
-    /*********************************************************************
-    * @todo Incorporate target angle setting either in DPS or RPM
-    **********************************************************************/
-   if(rpm_encoder_target < rpm_encoder_target)
-   {
-    rpm_encoder_target+=1;
-   }
-  }
-
-  if(rpm_encoder_val >= rpm_encoder_target)
-  {
-    state = ARMED_TARGET_REACHED;
-  }
-
-  /*********************************************************************
-  * @todo Implement set RPM/speed commands
-  **********************************************************************/
-  //motor_control.setSpeed(x);
-
-  break;
-
-  case(ARMED_TARGET_REACHED):
-  /*********************************************************************
-  * @todo Decrease chair speed by 1~1.5° gradually until RPM is 0
-  **********************************************************************/
- while (rpm_encoder_val > 0)
- { 
-  rpm_encoder_val -= 1;
-  /*********************************************************************
-  * @todo Implement set RPM/speed commands
-  **********************************************************************/
-  //motor_control.setSpeed(x); 
- }
-
-  break;
-
-  default:
-  /* Hold chair at 0 RPM */
-    break;
-}
-}
-}
-#endif
 
 /*************************************************************************
 * Function: sys_init

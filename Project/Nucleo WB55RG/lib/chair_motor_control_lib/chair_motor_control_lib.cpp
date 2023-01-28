@@ -66,9 +66,9 @@ int16_t SMC::controlPot() {
   int motSpeed = (((potV1*32)));
   int timeVal;
   
-  Serial.print("Speed: ");
-  Serial.print(motSpeed);
-  Serial.print("\tTime: ");
+  // Serial.print("Speed: ");
+  // Serial.print(motSpeed);
+  // Serial.print("\tTime: ");
 
   return motSpeed;
 
