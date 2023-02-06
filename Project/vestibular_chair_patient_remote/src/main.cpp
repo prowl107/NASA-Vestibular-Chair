@@ -18,13 +18,14 @@ RH_ASK transmitter(2000, 11, 12, 10, false);
 
 void setup() {
 /* Message packets */
-char msg[5];
-uint8_t msg_len = 5;
+char msg[6];
+uint8_t msg_len = 6;
 const char *no_btn_signal= "None_";
 const char *left_btn_signal  =  "Left_";
 const char *right_btn_signal =  "Right_";
 const char *multi_btn_signal =  "Both_";
 const char *estop_btn_signal =  "STOP_";
+const char *start_signal = "START";
 
 Serial.begin(115200);
 Serial.println("Program start");
@@ -45,6 +46,18 @@ Serial.println("Program start");
        Serial.println("init sender");
   }
 
+  for(uint8_t i = 0; i < 25; i++)
+  {
+    transmitter.send((uint8_t *)start_signal, strlen(start_signal));
+    delay(100);
+  }
+
+  for (int i = 0; i < 6; i++)
+  {
+    msg[i] = 0;
+  }
+
+
 while(true)
   {
     /* Emergency stop detected */
@@ -54,7 +67,13 @@ while(true)
       // strcpy(msg, estop_btn_signal);
       // strcpy(msg, estop_btn_signal);
       transmitter.send((uint8_t *)estop_btn_signal, strlen(estop_btn_signal));
-      // delay(2000);
+      delay(2500);
+        for(uint8_t i = 0; i < 10; i++)
+        {
+        transmitter.send((uint8_t *)start_signal, strlen(start_signal));
+        delay(200);
+        }
+            transmitter.send((uint8_t *)no_btn_signal, strlen(no_btn_signal));
       continue;
     }
 
@@ -93,7 +112,7 @@ while(true)
     }
 
     // transmitter.send((uint8_t *) msg, msg_len);    
-    transmitter.waitPacketSent();
+    // transmitter.waitPacketSent();
     digitalWrite(LED_BUILTIN,led_state);
     if(led_state <= 0)
     {

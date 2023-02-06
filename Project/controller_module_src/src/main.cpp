@@ -16,6 +16,7 @@ LiquidCrystal_I2C lcd(0x27, 20, 4);
 FSM fsm;
 SMC smc; /* Simple motor controller */
 RH_ASK receiver; /* Wireless transmitter/receiver */
+uint8_t start_test_flag;
 
 void setup() {
 Serial.begin(115200);
@@ -28,7 +29,7 @@ long test_start_time;
 long test_target_time;
 long test_time_elapsed;
 int32_t time_left;
-uint8_t counter;
+start_test_flag = 0;
 
 /* Finite State Machine (FSM) parameters */
 SYS_STATES_T state_index;
@@ -37,9 +38,6 @@ SYS_STATES_T state_index;
 int16_t current_speed; 
 int16_t speed_target;
 float speed_target_percent = 0.0;
-uint32_t rpm_encoder_val = 0;
-uint32_t rpm_encoder_prev_state = analogRead(A0);
-uint32_t rpm_encoder_new_state;
 int32_t speed_target_scaled;
 
 /* Wireless Communication parameters */
@@ -51,16 +49,13 @@ int32_t speed_target_scaled;
 * Both button:                3
 * Patient emergency button:   4
 *************************************************************************/
-char msg[5];
+char msg[6];
 uint8_t msg_len = 6;
-String data_log[5]; 
-uint8_t msg_index = 0;
 
 // /*************************************************************************
 // * Initialize Local Variables
 // *************************************************************************/ 
 smc = SMC(RPM_POTENTIOMETER);
-counter = 0;
 fsm = FSM(SYS_INIT);
 test_start_time = 0;  
 test_target_time = 0;
@@ -68,9 +63,6 @@ test_time_elapsed = 0;
 state_index = SYS_INIT;
 current_speed = 0;
 speed_target = 0;
-
-if (!receiver.init())
-Serial.println("init failed");
 
 /*************************************************************************
 * Start system Operation:
@@ -88,19 +80,27 @@ switch (fsm.getCurrentState())
 {
 case SYS_INIT:
   Serial.println("NASA Vestibular Chair -- Loading interface...");
-  // Wire.begin(); 
-  // Wire.setClock(400000);
 
   /* Initialize I/O Pins */
   sys_io_init();
 
   /* Initialize motor controller & interface */
+  Wire.begin(); 
+  Wire.setClock(400000);
   smc.exitSafeStart();
 
   /* Initialize displays */
   sys_display_init(&lcd);
 
   /* Initialize web interface */
+
+  /* Initialize communication interface */
+  if (!receiver.init())
+  Serial.println("init failed");
+  for (uint8_t i = 0; i < sizeof(msg); i++)
+  {
+    msg[i] = 0;
+  }
 
   /* Transition to PROCTOR_OP_RPM */
   state_index = PROCTOR_OP_RPM;
@@ -121,9 +121,9 @@ case PROCTOR_OP_RPM:
     speed_target_scaled = 12;
   }
 
-  if(speed_target_scaled > 16)
+  if(speed_target_scaled > 22)
   {
-    speed_target_scaled = 16;
+    speed_target_scaled = 22;
   }
 
   lcd.setCursor(strlen("Speed(RPM): "), 0);
@@ -196,6 +196,25 @@ case PROCTOR_OP_TIME:
   break;
 
 case SYS_ARM_HOLD:
+  /*************************************************************************
+  * Check for new file/patient signal
+  *************************************************************************/
+  if (!strstr(msg, "START") && start_test_flag == 0)
+  {
+    receiver.recv(msg, &msg_len);
+
+    if(strstr(msg, "START"))
+    {
+      Serial.println("START"); /* Send start of file signal */
+        for (uint8_t i = 0; i < sizeof(msg); i++)
+  {
+    msg[i] = 0;
+  }
+  start_test_flag = 1;
+  
+    }
+  }
+
   lcd.setCursor(strlen("Status: "), 2);
   /* Return to previous state */
   if (digitalRead(REJECT_BTN) == LOW)
@@ -218,8 +237,6 @@ case SYS_ARM_HOLD:
     state_index = SYS_ARM_HOLD;
     digitalWrite(DISARMED_LED, HIGH);
     digitalWrite(ARMED_LED, LOW);
-    break;
-
   }else if(digitalRead(ARMING_SWITCH_1) == LOW){
     lcd.print("        ");
     lcd.setCursor(strlen("Status: "), 2);
@@ -234,9 +251,15 @@ case SYS_ARM_HOLD:
     while(digitalRead(CONFIRMATION_BTN) == LOW);
     state_index = ARMED_OPERATION;
     lcd.print("ARMED_OP");
+    for (uint8_t i = 0; i < sizeof(msg); i++)
+  {
+    msg[i] = 0;
   }
+  *msg = 0;
   }
 
+  }
+  
   break;
 
 case ARMED_OPERATION:
@@ -256,8 +279,9 @@ case ARMED_OPERATION:
   {
     emergency_stop();
     Serial.println("EOF");
-    memset(msg, '\0', 6);
+    sys_display_init(&lcd);
     state_index = SYS_INIT;
+    Serial.println((char*)msg);
     break;
   }
 
@@ -265,7 +289,6 @@ case ARMED_OPERATION:
   * Capture patient data from wireless device
   * and send to PC
   * 
-  * @TODO: Send data to PC! (pyserial)
   **********************************************************************/
   if (receiver.recv(msg, &msg_len)) // Non-blocking
   {
@@ -290,7 +313,7 @@ case ARMED_OPERATION:
     if(current_speed < speed_target)
     {
     smc.setMotorSpeed(current_speed);
-    current_speed+=2;
+    current_speed+=4;
     // state_index = ARMED_TARGET_REACHED;
     }else{
       smc.setMotorSpeed(current_speed);
@@ -335,51 +358,63 @@ case ARMED_TARGET_REACHED:
  lcd.print("Test Complete");
  lcd.setCursor(0,1);
  lcd.print("Slowing down");
-    while(current_speed > 0)
+ lcd.setCursor(0,2);
+ lcd.print("Press btn when ready");
+ while(true)
+ {
+    if(current_speed > 0)
     {
     current_speed-=50;
-    state_index = ARMED_TARGET_REACHED;
+    // state_index = ARMED_TARGET_REACHED;
+    smc.setMotorSpeed(current_speed);
+    // delay(200);
+    }
+
     /**********************************************************************
     * Capture patient data from wireless device
     * and send to PC
-    * 
-    * @TODO: Send data to PC! (pyserial)
     **********************************************************************/
-  if(receiver.recv(msg, &msg_len))
-  {
-    int i;
-  // *msg = 0;
-  // Serial.println("DATA_LOG:");
-  Serial.print((test_time_elapsed - test_start_time));
-  // delay(500);
-  Serial.print(",");
-  // delay(500);
-  Serial.println((char*)msg);
-  }
-    
-    smc.setMotorSpeed(current_speed);
-    delay(200);
+    if(receiver.recv(msg, &msg_len))
+    {
+      int i;
+    // *msg = 0;
+    // Serial.println("DATA_LOG:");
+    Serial.print((test_time_elapsed - test_start_time));
+    // delay(500);
+    Serial.print(",");
+    // delay(500);
+    Serial.println((char*)msg);
+    test_time_elapsed = millis();
     }
-
-
-  /**********************************************************************
-  * @todo Finish logging data.
-  **********************************************************************/
-lcd.setCursor(0,2);
-lcd.print("Saving data to file");
-/* Insert end of file signal */
-Serial.println("EOF");
-delay(5000);
-lcd.setCursor(0,3);
-lcd.print("Done");
-delay(3000);
+    
+    /**********************************************************************
+    * Finish logging data when proctor has confirmed patient signal
+    * that chair has stopped
+    **********************************************************************/
+   if (digitalRead(CONFIRMATION_BTN) == LOW)
+   {
+    /* code */
+   
+    lcd.setCursor(0,3);
+    lcd.print("Saving data to file");
+    /* Insert end of file signal */
+    Serial.println("EOF");
+    delay(5000);
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Done");
+    delay(3000);
 
   /**********************************************************************
   * Reset for next sequence
   **********************************************************************/
  sys_display_init(&lcd);
  *msg = 0;
+ start_test_flag = 0;
  state_index = SYS_INIT;
+ break;
+   }
+}
 
   break;
 
@@ -390,7 +425,6 @@ case INVALID:
 default:
   break;
 }
-
 /*************************************************************************
 * Update FSM
 *************************************************************************/
@@ -443,6 +477,7 @@ void sys_io_init()
 
 void emergency_stop()
 {
+  start_test_flag = 0;
     lcd.clear();
     lcd.setCursor(0,0);
     lcd.print("EMERGENCY STOP");
