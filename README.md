@@ -19,6 +19,28 @@ Select "Open Project" and navigate to where the repo is located on your device.
 Open the PlatformIO project with the NASA-Vestibular-Chair root folder selected.
 Have fun :)
 
+## Hardware 
+### Version 1 - Controller Module
+| Category  | Component  |
+|---|---|
+| MCU  |  [Arduino Mega 2560 Rev3](https://store.arduino.cc/products/arduino-mega-2560-rev3) |
+| Motor Controller  | [Pololu Simple Motor Controller G2 24v12](https://www.pololu.com/product/1365)  |
+| Display  | [Standard 20x4 LCD w/ I2C](https://www.amazon.com/SunFounder-Serial-Module-Arduino-Mega2560/dp/B01GPUMP9C) |
+| I/O  | SPST Momentary switch; 250k potentiometer  |
+| Power Supply | USB 5v |
+| Communication Interface (Receiver) | [433Mhz Receiver](https://www.amazon.com/HiLetgo-Wireless-Transmitter-Receiver-Raspberry/dp/B01DKC2EY4/ref=sr_1_3?keywords=433mhz+transmitter+and+receiver&qid=1675643344&sr=8-3) |
+
+**NOTE:** Initially, the plan was to utilize a [Nucleo-WB55RG](https://www.st.com/en/evaluation-tools/nucleo-wb55rg.html) Development board. Due to time constraints and availability, the Arduino Mega (and Nano) were chosen due to their extensive library/peripheral support and quick prototyping capabilitiy.
+
+### Version 1 - Patient Remote
+
+| Category  |  Component |
+|---|---|
+| MCU  | [Arduno Nano R3](https://store.arduino.cc/products/arduino-nano)  |
+| I/O  |  3x SPST Momentary switch |
+| Power Supply   | 5v li-ion battery  |
+| Communication Interface (Transmitter)  |  [433Mhz Receiver](https://www.amazon.com/HiLetgo-Wireless-Transmitter-Receiver-Raspberry/dp/B01DKC2EY4/ref=sr_1_3?keywords=433mhz+transmitter+and+receiver&qid=1675643344&sr=8-3) |
+
 ## Presentations
 - [SPRINT 1 Demo Presentation](https://docs.google.com/presentation/d/1b5IdnyLSNwiTLVy-gZ9E79ZbYqnyJbTD/edit?usp=sharing&ouid=115407868332019012098&rtpof=true&sd=true)
 - [Sprint 2 Demo Presentation](https://docs.google.com/presentation/d/1l_CmvSCrBEOVg_VuYpDZWNs5qSBOpJvT/edit?usp=sharing&ouid=115407868332019012098&rtpof=true&sd=true)
