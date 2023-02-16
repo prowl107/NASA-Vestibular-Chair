@@ -2,3 +2,6 @@ February 15th 2023 --       Brandon, Miles and I met in the COAS lab to go over 
                             One of the key items, the internal power supply, was shown to have a much smaller size than the previously used version.
                             This caused Brandon and I to discuss the newer design for the controller module, which due to this will be much smaller in size than the initial
                             version.
+                            The three of us also discussed with Dr. French the state of the project and physical adjustments to the current models he was looking for.
+                            Overall, the adjustments he asked for were mostly software based which were planned to be adjusted anyway, however he also mentioned the removal of
+                            the emergency stop button on the patient controller due to potential issues with them accidentally stopping the chair.
