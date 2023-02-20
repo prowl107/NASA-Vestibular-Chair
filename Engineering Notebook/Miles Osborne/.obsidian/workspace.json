@@ -4,129 +4,26 @@
     "type": "split",
     "children": [
       {
-        "id": "57de186c73d8b64d",
+        "id": "6f1527cc57e24ed5",
         "type": "tabs",
         "children": [
           {
-            "id": "46f809a7858b8487",
+            "id": "16de493e980b5884",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "2022-12-5.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           },
           {
-            "id": "c6cd0ac9ce4f0f0e",
+            "id": "05281e733aca567b",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "2022-12-3.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "0fa3d1f017bd40fe",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "2022-12-5.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "6e8af285fad05cb8",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "2022-11-15.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "ada15f79e84cf598",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "2022-11-15.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "7e0b2ed7c07841f6",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "2022-10-31.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "3b80a8df357e51b1",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "2023-01-12.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "044f5622210774be",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "2022-11-29.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "29e56bbf3472b75e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "2023-01-11.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "11d2afe251f524cb",
-            "type": "leaf",
-            "state": {
-              "type": "pdf",
-              "state": {
-                "file": "SRS V1.pdf"
-              }
+              "type": "empty",
+              "state": {}
             }
           }
-        ],
-        "currentTab": 8
+        ]
       }
     ],
     "direction": "vertical"
@@ -192,8 +89,7 @@
               }
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "horizontal",
@@ -213,7 +109,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2023-01-11.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -230,7 +125,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2023-01-11.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -252,9 +146,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "2023-01-11.md"
-              }
+              "state": {}
             }
           },
           {
@@ -284,17 +176,17 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "29e56bbf3472b75e",
+  "active": "1b8c0168d6bed9cd",
   "lastOpenFiles": [
-    "2023-01-12.md",
-    "2022-10-25.md",
-    "2022-10-31.md",
-    "2022-12-5.md",
-    "2022-11-15.md",
-    "2022-10-28.md",
-    "2022-11-14.md",
-    "2022-11-21.md",
-    "2022-10-11.md",
-    "2022-10-05.md"
+    "2023-02-16.md",
+    "Hardware Communication Model Notes(WIP).md",
+    "2023-02-15.md",
+    "2023-02-09.md",
+    "2023-02-08.md",
+    "2023-01-12 to 2023-02-02.md",
+    "2023-01-17.md",
+    "2023-02-02.md",
+    "2023-01-31.md",
+    "2023-01-26.md"
   ]
 }
