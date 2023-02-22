@@ -20,9 +20,38 @@ void setup() {
 }
 
 // the loop routine runs over and over again forever:
-void speed() {
 
 
+void loop()
+{
+
+  int sensorValue = analogRead(A0);  // read the input on analog pin 0:
+  float position = sensorValue * (360 / 1023.0);  // Convert the analog reading (which goes from 0 - 1023) to a angle positon (0 - 360):
+  unsigned long t1 = millis();
+  delay(50);
+  
+  sensorValue = analogRead(A0);  // read the input on analog pin 0:
+  float position2= sensorValue * (360 / 1023.0);
+  unsigned long t2 = millis();
+
+  if (position2 < position )
+  {
+  position2 = position2+360;
+  }
+  float speed = (((position2-position) / (t2- t1) )/6 ) *1000; // speed in meters/hour
+  // t1 = t2;
+
+  Serial.print("speed:");  //saves the current time
+  Serial.println(speed);
+
+  delay(200);
+}
+
+
+
+
+
+void speed() { 
 
   if (lastpos==0){lastpos=position;}
   
@@ -71,48 +100,6 @@ void speed() {
 
   // Serial.println(speed);
 }
-
-
-
-
-
-void loop()
-{
-
-  int sensorValue = analogRead(A0);  // read the input on analog pin 0:
-  float position = sensorValue * (360 / 1023.0);  // Convert the analog reading (which goes from 0 - 1023) to a angle positon (0 - 360):
-  unsigned long t1 = millis();
-  delay(50);
-  
-  sensorValue = analogRead(A0);  // read the input on analog pin 0:
-  float position2= sensorValue * (360 / 1023.0);
-  unsigned long t2 = millis();
-
-  if (position2 < position )
-  {
-  position2 = position2+360;
-  }
-  float speed = (((position2-position) / (t2- t1) )/6 ) *1000; // speed in meters/hour
-  // t1 = t2;
-
-  Serial.print("speed:");  //saves the current time
-  Serial.println(speed);
-
-  delay(200);
-}
-
-
-
-// void virtMotor()
-// {
-//   speed++;
-//   delay (100);
-//   if (speed ==360)
-//   {
-//     speed =0;
-//   }
-
-// }
 
 
 
