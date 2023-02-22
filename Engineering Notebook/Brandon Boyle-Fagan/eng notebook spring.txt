@@ -1,0 +1,26 @@
+1/11/23 - Meet with team to go over tasks and important deadlines for upcoming sprint. Compiled list of requirements to make part box container.
+
+1/14/23 - Started modeling designs for controller box. includes power supply, arduino, motor controller, I/O
+
+1/18/23 - Printing designs for controller box.
+
+1/20/23 - Printing desing for controller box and assembly.
+
+1/21/23 - Assemble first controller box. test and deug motor controller box with MAtthaeus, and Miles, as well as test first implementation of wireless remote.
+
+1/22/23 - More 3D printing.
+ 
+1/23/23 - Moved chair to HAL. Tested that the controller box work to power chair. assembled and soldered circuit for wireless remote.
+
+1/26/23 - Worked with Dylan on creating a base to read the data from the tachometer 
+
+1/27/23 - talked to Dr. Garcia about ways to Read the data from the potentiometer
+
+
+
+
+
+2/16/23 - Talked to Dr.Pang on way to impliment a PID based control system into the chair and tachometer feedback system. Worked with Dylan to Update the tachometer to use new measurement system. 
+
+
+2/
