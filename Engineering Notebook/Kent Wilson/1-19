@@ -1,4 +1,4 @@
-January 19 2023 14:30 --             The group went to the COAS lab with Dr. Pang and we went over some more specifics of the internals of the chair, such as the design
+January 19th, 2023 14:30 --          The group went to the COAS lab with Dr. Pang and we went over some more specifics of the internals of the chair, such as the design
                                      of the motor and our changes to the ports for power wiring.
                                      Dr. Pang suggested the use of a P.I.D. controller setup for help with feedback of the rotational speed of the chair based on use of the
                                      tachometer that was present in the chair. This worked well with Brandon's initial idea to do a similar thing, however we were slightly
