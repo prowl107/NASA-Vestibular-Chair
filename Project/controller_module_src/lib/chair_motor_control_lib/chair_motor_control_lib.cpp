@@ -5,7 +5,7 @@
 **********************************************************************************/
 #include "chair_motor_control_lib.h"
 
-SMC::SMC(uint8_t potentiometer_pin = A1){
+SMC::SMC(uint8_t potentiometer_pin){
     pin = A1;
 }
 

@@ -20,7 +20,7 @@
 class SMC
 {
     public:
-    SMC(uint8_t potentiometer_pin = A1);
+    SMC(uint8_t potentiometer_pin);
     /* Public Function Prototypes */
     void exitSafeStart();
     void setMotorSpeed(int16_t speed);
