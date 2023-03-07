@@ -1,0 +1,4 @@
+We experienced a critical failure yesterday with the controller module, 
+which caused a complete loss of controll. We don't know what happened exactly, 
+but it's probably the wiring. We met in the lab for this, where Miles rewired 
+the board I worked on the bluetooth now that we have the boards available to do so.

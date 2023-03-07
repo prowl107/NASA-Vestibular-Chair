@@ -1,0 +1,8 @@
+So far the group met in the lab adjusting the controller module before handing
+it over to Dr. French. While the controller module itself was complete, there 
+are some issues with the remote. We also plan on improving the design by
+soldering the wires to prevent them from coming loose.
+
+During the meeting with Dr. Pang, we discussed changes to the power wiring. 
+Dr. Pang suggested we use a P.I.D. controller setup to create a feedback loop
+for the rotation of the chair using the tachometer.
