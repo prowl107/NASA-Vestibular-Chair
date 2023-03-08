@@ -6,8 +6,10 @@
 #include "chair_lib_gbl.h"
 #include "chair_pins.h"
 #include <LiquidCrystal_I2C.h> // includes the LiquidCrystal Library 
-#include <RadioHead.h>
-#include <RH_ASK.h>
+#include <bluefruit.h>
+// #include <bluefruit52.h>
+// #include <RadioHead.h>
+// #include <RH_ASK.h>
 #include <SPI.h>
 #include <Wire.h>
 
@@ -15,8 +17,21 @@
 LiquidCrystal_I2C lcd(0x27, 20, 4);
 FSM fsm(SYS_INIT);
 SMC smc(A1); /* Simple motor controller */
-RH_ASK receiver; /* Wireless transmitter/receiver */
+// RH_ASK receiver; /* Wireless transmitter/receiver */
 uint8_t start_test_flag;
+
+
+char rx[6];
+
+
+BLEClientBas  clientBas;  // battery client
+BLEClientDis  clientDis;  // device information client
+BLEClientUart clientUart; // bleuart client
+
+void connect_callback(uint16_t conn_handle);
+void scan_callback(ble_gap_evt_adv_report_t* report);
+void disconnect_callback(uint16_t conn_handle, uint8_t reason);
+void bleuart_rx_callback(BLEClientUart& uart_svc);
 
 void setup() {
 Serial.begin(115200);
@@ -70,6 +85,42 @@ chair_stop_timestamp = 0;
 end_of_test_timestamp = 0;
 chair_stop_flag = 0;
 
+// /*************************************************************************
+// * Initialize Bluetooth Library
+// *************************************************************************/
+  Bluefruit.begin(0, 1);
+  
+  Bluefruit.setName("Controller Central");
+
+  // Configure Battyer client
+  clientBas.begin();  
+
+  // Configure DIS client
+  clientDis.begin();
+
+  // Init BLE Central Uart Serivce
+  clientUart.begin();
+  clientUart.setRxCallback(bleuart_rx_callback);
+
+  // Increase Blink rate to different from PrPh advertising mode
+  Bluefruit.setConnLedInterval(250);
+
+  // Callbacks for Central
+  Bluefruit.Central.setConnectCallback(connect_callback);
+  Bluefruit.Central.setDisconnectCallback(disconnect_callback);
+
+  /* Start Central Scanning
+   * - Enable auto scan if disconnected
+   * - Interval = 100 ms, window = 80 ms
+   * - Don't use active scan
+   * - Start(timeout) with timeout = 0 will scan forever (until connected)
+   */
+  Bluefruit.Scanner.setRxCallback(scan_callback);
+  Bluefruit.Scanner.restartOnDisconnect(true);
+  Bluefruit.Scanner.setInterval(160, 80); // in unit of 0.625 ms
+  Bluefruit.Scanner.useActiveScan(false);
+  Bluefruit.Scanner.start(0);                   // // 0 = Don't stop scanning after n seconds
+
 /*************************************************************************
 * Start system Operation:
 *
@@ -107,11 +158,13 @@ case SYS_INIT:
   /* Initialize web interface */
 
   /* Initialize communication interface */
-  if (!receiver.init())
-  Serial.println("init failed");
-  for (uint8_t i = 0; i < sizeof(msg); i++)
+  if ( !Bluefruit.Central.connected() )
   {
-    msg[i] = 0;
+    Serial.println("init failed");
+    for (uint8_t i = 0; i < sizeof(msg); i++)
+    {
+      msg[i] = 0;
+    }
   }
 
   /* Transition to PROCTOR_OP_RPM */
@@ -213,7 +266,8 @@ case SYS_ARM_HOLD:
   *************************************************************************/
   if (!strstr(msg, "START") && start_test_flag == 0)
   {
-    receiver.recv(msg, &msg_len);
+    strcpy(msg, rx);
+    // receiver.recv(msg, &msg_len);
 
     if(strstr(msg, "START"))
     {
@@ -328,8 +382,9 @@ case ARMED_OPERATION:
   * and send to PC
   * 
   **********************************************************************/
-  if (receiver.recv(msg, &msg_len)) // Non-blocking
+  if (clientUart.discovered()) // Non-blocking
   {
+  strcpy(msg, rx);
   int i;
   // *msg = 0;multi_btn_signalp
   // Serial.println("DATA_LOG:");
@@ -426,8 +481,9 @@ case ARMED_TARGET_REACHED:
     * Capture patient data from wireless device
     * and send to PC
     **********************************************************************/
-    if(receiver.recv(msg, &msg_len))
+    if(clientUart.discovered())
     {
+    strcpy(msg, rx);
       int i;
     // *msg = 0;
     // Serial.println("DATA_LOG:");
@@ -573,6 +629,136 @@ void emergency_stop()
     fsm.setCurrentState(SYS_INIT);
 }
 
+/*************************************************************************
+* Function: Bluetooth Callbacks
+*
+* Purpose: used to connect and receive data 
+*************************************************************************/
+
+/**
+ * Callback invoked when scanner pick up an advertising data
+ * @param report Structural advertising data
+ */
+void scan_callback(ble_gap_evt_adv_report_t* report)
+{
+  // Check if advertising contain BleUart service
+  if ( Bluefruit.Scanner.checkReportForService(report, clientUart) )
+  {
+    Serial.print("BLE UART service detected. Connecting ... ");
+
+    // Connect to device with bleuart service in advertising
+    Bluefruit.Central.connect(report);
+  }else
+  {      
+    // For Softdevice v6: after received a report, scanner will be paused
+    // We need to call Scanner resume() to continue scanning
+    Bluefruit.Scanner.resume();
+  }
+}
+
+/**
+ * Callback invoked when an connection is established
+ * @param conn_handle
+ */
+void connect_callback(uint16_t conn_handle)
+{
+  Serial.println("Connected");
+
+  Serial.print("Dicovering Device Information ... ");
+  if ( clientDis.discover(conn_handle) )
+  {
+    Serial.println("Found it");
+    char buffer[32+1];
+    
+    // read and print out Manufacturer
+    memset(buffer, 0, sizeof(buffer));
+    if ( clientDis.getManufacturer(buffer, sizeof(buffer)) )
+    {
+      Serial.print("Manufacturer: ");
+      Serial.println(buffer);
+    }
+
+    // read and print out Model Number
+    memset(buffer, 0, sizeof(buffer));
+    if ( clientDis.getModel(buffer, sizeof(buffer)) )
+    {
+      Serial.print("Model: ");
+      Serial.println(buffer);
+    }
+
+    Serial.println();
+  }else
+  {
+    Serial.println("Found NONE");
+  }
+
+  Serial.print("Dicovering Battery ... ");
+  if ( clientBas.discover(conn_handle) )
+  {
+    Serial.println("Found it");
+    Serial.print("Battery level: ");
+    Serial.print(clientBas.read());
+    Serial.println("%");
+  }else
+  {
+    Serial.println("Found NONE");
+  }
+
+  Serial.print("Discovering BLE Uart Service ... ");
+  if ( clientUart.discover(conn_handle) )
+  {
+    Serial.println("Found it");
+
+    Serial.println("Enable TXD's notify");
+    clientUart.enableTXD();
+
+    Serial.println("Ready to receive from peripheral");
+  }else
+  {
+    Serial.println("Found NONE");
+    
+    // disconnect since we couldn't find bleuart service
+    Bluefruit.disconnect(conn_handle);
+  }  
+}
+
+/**
+ * Callback invoked when a connection is dropped
+ * @param conn_handle
+ * @param reason is a BLE_HCI_STATUS_CODE which can be found in ble_hci.h
+ */
+void disconnect_callback(uint16_t conn_handle, uint8_t reason)
+{
+  (void) conn_handle;
+  (void) reason;
+  
+  Serial.println("Disconnected");
+}
+
+/**
+ * Callback invoked when uart received data
+ * @param uart_svc Reference object to the service where the data 
+ * arrived. In this example it is clientUart
+ */
+void bleuart_rx_callback(BLEClientUart& uart_svc)
+{
+  // Serial.print("[RX]: ");
+  int i = 0;
+  char buf[6];
+  
+  while ( uart_svc.available() )
+  {
+    // Serial.print( (char) uart_svc.read() );
+    buf[i] = (char) uart_svc.read();
+    i++;
+    if(i>5){
+      i = 0;
+    }
+  }
+  strcpy(rx,buf);
+
+  // Serial.println();
+}
 /*************************************************************************
 * Function: sys_init
 *
