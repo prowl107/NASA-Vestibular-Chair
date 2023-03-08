@@ -15,7 +15,7 @@
 #define CONFIRMATION_BTN 6
 #define REJECT_BTN 7
 #define ARMING_SWITCH_1 8
-#define ESTOP_BTN   2
+#define ESTOP_BTN   5
 #define DIRECTION_BTN 2
 
 /* System LEDs*/

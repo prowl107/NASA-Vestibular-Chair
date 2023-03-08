@@ -1,0 +1,3 @@
+We met in the lab today, Noah updated us on the progress with the PCB
+and Dylan informed us that he would have a mock-up of the web interface by the end of the day.
+Other than that I helped Noah a bit with the PCB and We just got the new boards ready

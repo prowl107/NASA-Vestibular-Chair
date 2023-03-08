@@ -34,7 +34,7 @@ class FSM{
 
     public:
     /* Public Function Prototypes */
-    FSM(SYS_STATES_T initial_state = DEFAULT_VAL);     /* Constructor */
+    FSM(SYS_STATES_T initial_state);     /* Constructor */
     SYS_STATES_T getCurrentState();
     void setCurrentState(SYS_STATES_T new_state);
     

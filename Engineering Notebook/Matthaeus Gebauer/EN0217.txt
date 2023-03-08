@@ -1,0 +1,4 @@
+We had a meeting in the lab to talk about some of the items that had arrived
+from the budget. I worked on the microcontrollers and the Bluetooth protocol.
+Brandon and Dylan worked on the tachometer test.
+Kent and Miles worked on the.

@@ -1,0 +1,4 @@
+the group met with their product owner, Dr. French, to discuss the 
+deliverables for the vestibular chair moving to the high-altitude 
+lab on the 19th. Dr. French wants the controller and remote 
+for the chair to be finished.

@@ -1,0 +1,5 @@
+We met at the lab to continue working on the external controller
+and move the vestibular chair to the high-altitude lab. We did need to fix
+the wire connections of the controller.
+
+Afterwards we went back to the lab to finish working on the patient controller.

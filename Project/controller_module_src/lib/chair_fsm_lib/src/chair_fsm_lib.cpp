@@ -6,7 +6,7 @@
 **********************************************************************************/
 #include "chair_fsm_lib.h"
 
-FSM::FSM(SYS_STATES_T initial_state = DEFAULT_VAL)
+FSM::FSM(SYS_STATES_T initial_state)
 {
     this->stateIndex = initial_state;
 }                          

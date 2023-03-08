@@ -1,0 +1,6 @@
+Two of us worked on the hardware side of things, specifically identifying 
+the wires responsible for power within the chair's internal components. 
+We removed these wires from their current ports and replaced them with 
+ethernet ports, which will be used to power.
+
+I worked on the wireless receiver/transmission with Miles.

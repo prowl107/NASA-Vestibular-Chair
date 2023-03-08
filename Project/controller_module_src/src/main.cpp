@@ -13,8 +13,8 @@
 
 /* Peripherals */
 LiquidCrystal_I2C lcd(0x27, 20, 4);
-FSM fsm;
-SMC smc; /* Simple motor controller */
+FSM fsm(SYS_INIT);
+SMC smc(A1); /* Simple motor controller */
 RH_ASK receiver; /* Wireless transmitter/receiver */
 uint8_t start_test_flag;
 
@@ -30,6 +30,9 @@ long test_target_time;
 long test_time_elapsed;
 int32_t time_left;
 start_test_flag = 0;
+long chair_stop_timestamp;
+long end_of_test_timestamp;
+uint8_t chair_stop_flag;
 
 /* Finite State Machine (FSM) parameters */
 SYS_STATES_T state_index;
@@ -63,6 +66,9 @@ test_time_elapsed = 0;
 state_index = SYS_INIT;
 current_speed = 0;
 speed_target = 0;
+chair_stop_timestamp = 0;
+end_of_test_timestamp = 0;
+chair_stop_flag = 0;
 
 /*************************************************************************
 * Start system Operation:
@@ -75,6 +81,12 @@ speed_target = 0;
 * 5 - ARMED_OPERATION
 * 6 - ARMED_TARGET_REACHED
 **************************************************************************/
+// sys_display_init(&lcd);
+// while(true){
+//   Serial.println(smc.controlPot());
+//   delay(500);
+// }
+
 while(1){
 switch (fsm.getCurrentState())
 {
@@ -275,13 +287,39 @@ case ARMED_OPERATION:
   /*********************************************************************
   * Emergency Stop Detected --> Stop Test Immediately
   **********************************************************************/
-  if(digitalRead(ESTOP_BTN) == LOW  || strstr(msg, "STOP") )
+  if(digitalRead(ESTOP_BTN) == LOW)
   {
     emergency_stop();
     Serial.println("EOF");
     sys_display_init(&lcd);
     state_index = SYS_INIT;
     Serial.println((char*)msg);
+
+   #if 0 /* TO be used in next revision */
+      /* Speed */
+   Serial.print("Speed Target: ");
+   Serial.print(speed_target_scaled);
+   Serial.println("RPM ");
+
+   /* Duration */
+   Serial.print("Spin duration: ");
+   Serial.print(test_target_time);
+   Serial.println("ms ");
+
+   /*Chair stop time */ 
+   Serial.print("Chair stops at: ");
+   Serial.print(chair_stop_timestamp);
+   Serial.println("ms ");
+
+   /* When the test ends/button is pressed */
+   Serial.print("Test stopped at ");
+   Serial.print(end_of_test_timestamp);
+   Serial.println("ms ");
+   
+   /* End of file signal */
+   Serial.println("EOF");
+   #endif
+    
     break;
   }
 
@@ -305,7 +343,7 @@ case ARMED_OPERATION:
   // Serial.println(data_log[msg_index]);
 
 
-  /******************************multi_btn_signalp***************************************
+  /*********************************************************************
   * Gradually increase RPM until target is reached
   **********************************************************************/
   if(test_target_time+1000 > (test_time_elapsed - test_start_time))
@@ -359,15 +397,29 @@ case ARMED_TARGET_REACHED:
  lcd.setCursor(0,1);
  lcd.print("Slowing down");
  lcd.setCursor(0,2);
- lcd.print("Press btn when ready");
+ lcd.print("1. Press yllw btn ");
+ lcd.setCursor(0,3);
+ lcd.print("2. Press green btn");
  while(true)
  {
+    test_time_elapsed = millis();
+
     if(current_speed > 0)
     {
-    current_speed-=50;
+    current_speed-=25;
     // state_index = ARMED_TARGET_REACHED;
     smc.setMotorSpeed(current_speed);
     // delay(200);
+    }
+
+    /**********************************************************************
+    * NOTE: Repurposing emergency stop switch to mark when chair has 
+    * stopped
+    **********************************************************************/ 
+    if(digitalRead(ESTOP_BTN) == LOW && chair_stop_flag == 0) 
+    {
+      chair_stop_timestamp = (test_time_elapsed - test_start_time);
+      chair_stop_flag = 1;
     }
 
     /**********************************************************************
@@ -384,8 +436,8 @@ case ARMED_TARGET_REACHED:
     Serial.print(",");
     // delay(500);
     Serial.println((char*)msg);
-    test_time_elapsed = millis();
     }
+
     
     /**********************************************************************
     * Finish logging data when proctor has confirmed patient signal
@@ -394,16 +446,50 @@ case ARMED_TARGET_REACHED:
    if (digitalRead(CONFIRMATION_BTN) == LOW)
    {
     /* code */
-   
+   end_of_test_timestamp = (test_time_elapsed - test_start_time);
+
     lcd.setCursor(0,3);
     lcd.print("Saving data to file");
     /* Insert end of file signal */
     Serial.println("EOF");
-    delay(5000);
-    lcd.clear();
-    lcd.setCursor(0,0);
-    lcd.print("Done");
-    delay(3000);
+
+    /**********************************************************************
+    * Log system events
+    **********************************************************************/
+   /* Speed */
+   Serial.print("Speed Target: ");
+   Serial.print(speed_target_scaled);
+   Serial.println("RPM ");
+
+   /* Duration */
+   Serial.print("Spin duration: ");
+   Serial.print(test_target_time);
+   Serial.println("ms ");
+
+   /*Chair stop time */ 
+   Serial.print("Chair stops at: ");
+   if(chair_stop_flag){
+   Serial.print(chair_stop_timestamp);
+   Serial.println("ms ");
+   }else{
+    Serial.print("N/A ");
+   }
+
+   /* When the test ends/button is pressed */
+   Serial.print("Test stopped at ");
+   Serial.print(end_of_test_timestamp);
+   Serial.println("ms ");
+   
+   /* End of file signal */
+   Serial.println("EOF");
+   
+   delay(4000);
+   lcd.clear();
+   lcd.setCursor(0,0);
+   lcd.print("Done");
+   delay(3000);
+
+
 
   /**********************************************************************
   * Reset for next sequence
@@ -412,6 +498,7 @@ case ARMED_TARGET_REACHED:
  *msg = 0;
  start_test_flag = 0;
  state_index = SYS_INIT;
+ chair_stop_flag = 0;/* Reset flag */
  break;
    }
 }

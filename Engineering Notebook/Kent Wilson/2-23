@@ -1,0 +1,6 @@
+February 23rd, 2023 ----      Miles and I met with Dr. Pang to discuss the progress of the project. This included Miles' discussion of the critical failure experienced
+                              during the morning of the controller module, to which there was no discernible reason for. The module suffered complete inuse of all of it's functions
+                              which we believe may be due to wiring issues, but this is unconfirmed as of now.
+                              
+                              After this, we met with the rest of the group in the COAS lab during which Miles worked on rewiring the board, while Matthaeus worked on the bluetooth
+                              aspect of the module, Dylan worked on his mock up of the web interface, and Brandon worked on the final touches on implementation of the tachometer.

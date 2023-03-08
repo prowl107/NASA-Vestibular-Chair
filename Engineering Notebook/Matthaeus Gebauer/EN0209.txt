@@ -1,0 +1,4 @@
+We had a meeting with Dr. French to discuss updates that were required
+for the controller and handheld remote for testing. Dr. French mentioned
+that the data received was unusable so we worked on how to resolve this 
+issue.

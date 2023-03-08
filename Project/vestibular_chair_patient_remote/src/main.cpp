@@ -6,9 +6,9 @@
 #define RUNNING           1
 
 /* I/O & Button Pins */
-#define LEFT_BTN          4
+#define LEFT_BTN          3
 #define RIGHT_BTN         2
-#define EMERGENCY_STOP    3
+#define EMERGENCY_STOP    4
 
 /* Message packets */
 
@@ -27,8 +27,8 @@ const char *multi_btn_signal =  "Both_";
 const char *estop_btn_signal =  "STOP_";
 const char *start_signal = "START";
 
-Serial.begin(115200);
-Serial.println("Program start");
+// Serial.begin(115200);
+// Serial.println("Program start");
 
   /* Initialize I/O Pins */
   pinMode(LEFT_BTN, INPUT_PULLUP);
@@ -43,7 +43,7 @@ Serial.println("Program start");
   
   if (transmitter.init())
   {
-       Serial.println("init sender");
+      //  Serial.println("init sender");
   }
 
   for(uint8_t i = 0; i < 25; i++)
@@ -60,10 +60,13 @@ Serial.println("Program start");
 
 while(true)
   {
+    // Serial.print(millis());
+    // Serial.print("\t");
     /* Emergency stop detected */
+    #if 0
     if(digitalRead(EMERGENCY_STOP) == LOW)
     {
-      // Serial.println("Emergency button pressed");
+      Serial.println("Emergency button pressed");
       // strcpy(msg, estop_btn_signal);
       // strcpy(msg, estop_btn_signal);
       transmitter.send((uint8_t *)estop_btn_signal, strlen(estop_btn_signal));
@@ -76,9 +79,10 @@ while(true)
             transmitter.send((uint8_t *)no_btn_signal, strlen(no_btn_signal));
       continue;
     }
+    #endif
 
     /* Right button pressed */
-    else if(digitalRead(RIGHT_BTN) == LOW && digitalRead(LEFT_BTN) == HIGH)
+    if(digitalRead(RIGHT_BTN) == LOW && digitalRead(LEFT_BTN) == HIGH)
     {
       // Serial.println("Right button pressed");
       // strcpy(msg, right_btn_signal);
