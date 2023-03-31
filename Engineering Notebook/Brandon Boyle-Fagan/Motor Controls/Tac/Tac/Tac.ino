@@ -1,24 +1,30 @@
+#define SAMPLES 100
 int value = 0;
 int  rev = 0;
 int RPM;
 int time;
 // needed for pos function. 
-int position;
-int initialpos;
-int RPS;
-int mySensVals[4] = { 0, 0, 0, 0 };
+float position;
+float initialpos;
+float RPS;
+int mySensVals[SAMPLES];
 int count = 0;
-int lastpos=0;
-int Sample = 10; // samples of data 
+float lastpos=0;
+int Sample = SAMPLES; // samples of data 
 int Period = 1000/ Sample;
 // end of needed for pos function.
-
 
 
 void setup() {
   // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
 
+
+  for(int i=0; i< SAMPLES; i++)
+  {
+    mySensVals[i] = 0;
+  }
+  
 }
 
 // the loop routine runs over and over again forever:
@@ -27,16 +33,15 @@ void setup() {
 void loop()
 {
 
-//speedometer();
 pos();
  
 }
 
 
-
+/*
 void speedometer(){
 
-   int sensorValue = analogRead(A0);  // read the input on analog pin 0:
+  int sensorValue = analogRead(A0);  // read the input on analog pin 0:
   int position = sensorValue * (360 / 1023.0);  // Convert the analog reading (which goes from 0 - 1023) to a angle positon (0 - 360):
   unsigned long t1 = millis();
   delay(50);
@@ -57,16 +62,28 @@ void speedometer(){
 
   delay(300);
 }
-
+*/
 
 void pos() { 
-   int sensorValue = analogRead(A0);  // read the input on analog pin 0:
-  int position = sensorValue * (360 / 1023.0) ;  // Convert the analog reading (which goes from 0 - 1023) to a angle positon (0 - 360):
+  float sensorValue = analogRead(A0);  // read the input on analog pin 0:
+  sensorValue = map(sensorValue, 1023, 0, 1, 1024);
+  Serial.print("sensor:");  //sensor val
+  Serial.println(sensorValue);
+  
+  float position = sensorValue * (360 / 1024.0) ;  // Convert the analog reading (which goes from 0 - 1023) to a angle positon (0 - 360):
+   position = map(position, 360, 1, 1, 360);
   Serial.print("Position:");  //saves the current time
   Serial.println(position);
   delay(50);
-  if (lastpos==0){lastpos=position;}
-  int change = position - lastpos; // gets a difference in position vs last position  
+//  if (lastpos==0){lastpos=position;}
+
+
+if (lastpos < position )
+  {
+  lastpos = lastpos+360;
+  }
+  
+  float change = position - lastpos; // gets a difference in position vs last position  
 
   mySensVals[count] = change; //stores delta into an size 4 array to average them.
   if (count == 3) {
@@ -76,7 +93,7 @@ void pos() {
   }
  // Serial.println(change); // test
   int change4=0;
-  for (int index = 0; index <4; index++) {
+  for (int index = 0; index <Sample; index++) {
     change4 += mySensVals[index]; 
     // Serial.println(mySensVals[index]); //test 
   }
@@ -86,8 +103,13 @@ void pos() {
   RPS = change4 / Sample;    // averages change in rotation relative to time 
   lastpos = position;
   Serial.print("RPS:");  //saves the current time
-  Serial.println(abs(RPS*2));
-  delay(Period);
+  Serial.println(abs(RPS));
+  delay(0);
+
+if (RPS== 0)
+{
+  Serial.println("------------------Chair is done spinning------------------------ ");
+}
 
 }
 

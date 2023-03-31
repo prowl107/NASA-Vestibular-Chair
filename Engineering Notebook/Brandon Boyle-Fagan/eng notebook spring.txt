@@ -20,7 +20,14 @@
 
 
 
-2/16/23 - Talked to Dr.Pang on way to impliment a PID based control system into the chair and tachometer feedback system. Worked with Dylan to Update the tachometer to use new measurement system. 
+2/16/23 - Talked to Dr.Pang on way to implement a PID based control system into the chair and tachometer feedback system. Worked with Dylan to Update the tachometer to use new measurement system. 
 
 
-2/
+
+2/23/2023 - Attempted to reinstall Tach into chair.
+
+2/27/2023 - Redesigned and printed the new casing design  for the paitent remote control.
+
+3/3/23 - Worked in HAL to attach tachometer to chair. 
+
+3/7/23 - Worked in HAL along with Miles and Kent to attach tachometer to chair and get RPM data from it. 
