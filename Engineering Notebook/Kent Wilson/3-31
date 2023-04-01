@@ -1,0 +1,12 @@
+March 31st, 2023 ---    The group met in the HAL to continue testing of the tachometer code for it's ability to note when the chair has come to a stop with an accurate
+                        measurement. After some adjustments of the code, it appeared that we had reached a state that was accurate enough to be used, however we noted
+                        multiple different issues that were caused by outside variables.
+                        
+                        There was approximately a 2-3 second delay between the human discerned stopping time and the stopping time noted by the chair, however it was agreed that there is
+                        a chance that this is due to a potential mix of human error along with variance of the component itself. The biggest issue noticed happened to be
+                        the fact that if the chair was carrying momentum due to the weight of the person in the chair, there was a much larger descrepency in the human 
+                        recorded time versus the time the tachometer read it had stopped moving.
+                        
+                        After extensive trial and error, Miles and I began to ponder the idea of using an IMU to do the location measuring, and believed that it might work
+                        better as it could be placed inside the patient remote, allowing it to carry the actual movement of the chair, opposed to the tachometer which carried
+                        the movement due to the gears internally.
