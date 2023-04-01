@@ -1,1 +1,7 @@
-
+March 30th, 2023 ---      The group met in the HAL to attempt rewiring of the power setup for the chair to include the tachometer as to read and use it's data as per
+                          Dr. French's requirements. After rewiring the setup, it proved to still be able to read with the ethernet cable we were currently using, opposed
+                          to us needing to replace it as we thought was possible. 
+                          
+                          The main issue then became the coding setup for the tachometer to read a stopping point properly, as it continued to read a number far outside
+                          of realistic range periodically, along with not accurately measuring the stopping point of the chair. The group agreed to meet in the HAL on the 
+                          31st to continue testing.
