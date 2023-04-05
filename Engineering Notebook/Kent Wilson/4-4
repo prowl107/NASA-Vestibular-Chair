@@ -1,0 +1,5 @@
+April 4th, 2023 -------     The group met with Dr. Pang to discuss the current situation of the tachometer in the chair. Dr. Pang suggested taking a video of the chair
+                            during motion and calculating the RPM and putting that against the value being read from the tachometer to determine if the component
+                            was not functioning properly. 
+                            Afterwards, the group began discussing posisble alternatives to calculate the stopping point of the chair, such as an IMU or another gyroscopic
+                            device that could be attached to the chair, as well as possibly procuring another tachometer.
