@@ -1,0 +1,5 @@
+We met in the Lab today and continued the discusion from last time.
+Now we are actively searching and proposing options for what to replace
+the old tachometer with. Miles and I worked ened out working on installing 
+a library for an imu that Dr. French had at the lab which could be perfect
+(if it works)

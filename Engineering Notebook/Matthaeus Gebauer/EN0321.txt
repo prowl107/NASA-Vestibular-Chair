@@ -1,0 +1,2 @@
+the group had a meeting with Dr. Pang. We reviewed the progress and challenges 
+of developing a wireless system using a bluetooth device and tachometer.
