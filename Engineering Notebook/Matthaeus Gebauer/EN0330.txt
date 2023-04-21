@@ -1,0 +1,5 @@
+The group worked on the project's final scope with Dr. French and tried to 
+integrate a tachometer into the chair's power setup. We faced some 
+challenges with the wiring and the coding of the tachometer and planned 
+to meet again for more testing. Currently the issue has mainly to do 
+with getting weird numbers from the tachometer read.

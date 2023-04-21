@@ -1,0 +1,6 @@
+The group talked with Dr. Pang in class about the tachometer problem 
+in the chair. We have the option to record the chair's motion and compare the 
+RPM with the tachometer reading. Of cours this could be worthless if the 
+tachometer is actually broken. We also thought of other ways to measure 
+the chair's stopping point, like using an IMU or a gyro device or getting 
+a new tachometer or maybe an FPGA.

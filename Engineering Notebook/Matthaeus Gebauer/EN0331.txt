@@ -1,0 +1,7 @@
+The group tested the tachometer code for the chair's stopping time and
+found some issues. The tachometer was not very accurate when the chair had 
+momentum or when there was a long spindown. Miles and Kent brought up the idea 
+of using an IMU instead of a tachometer to measure the chair's movement better.
+It would likely need to be placed on the back of the chair and we would 
+likely need another module, so this is going to be up for debate on how to 
+proceed.

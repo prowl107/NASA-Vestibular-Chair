@@ -1,0 +1,3 @@
+We had a productive meeting on March 28th, 2023. We talked about our
+progress on the web interface and what we still need to do to make 
+it user-friendly and functional. We also assigned tasks and deadlines.

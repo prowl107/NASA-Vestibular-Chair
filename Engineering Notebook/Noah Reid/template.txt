@@ -53,3 +53,41 @@ FEB 03 2023 - Got the STLs for the controller from Brandon so I can print two du
 
 FEB 6 2023 - I was going to head down to the MakerLab to print 2 more duplicate modules, but Dr. French is going to give us his
 			list of greivances with controller operation tomorrow and I think we should wait until then to print new modules
+
+FEB 7 2023 - We performed our presentation
+
+FEB 13 2023 - We discussed seeing the chair being used in testing so that we could flesh out the idea of what needed to be done better
+
+FEB 14 2023 - I am beginning to design a PCB for the purpose of replacing our breadboard controller
+
+FEB 16 2023 - We met, and got pictures of the controller to map the schematic
+
+FEB 18 2023 - Miles helped me get the bluefruit board footprint for KiCAD
+
+FEB 21 2023 - I had a dental appointment and could not go to the lab, I remotely connected with my schematic and Miles helped me tweak it
+
+FEB 23 2023 - Our controller broke during testing, we determined it was because it moved and a wire came out and shorted our controller.
+
+FEB 24 2023 - More pictures of the controller to make the schematic accurate, the previous ones were difficult to interpret
+
+FEB 27 2023 - We discussed a lot about how to evolve our handheld "direction input" controller that the patient uses
+
+MARCH 2 2023 - I recently got a root canal and couldn't come to lab because it flared up
+
+MARCH 4 2023 - We began our Sprint presentation
+
+MAR 4-27 2023 - I had a lot of dental work done and missed a lot of class and meetings, I can't remember what I did during this period and did not write it down
+
+MAR 28 2023 - I worked with miles on making adjustments to the PCB
+
+MAR 29 2023 - I worked more on PCB design in the lab, and gave it to miles to make edits
+
+MAR 30 2023 - Again, more work on the PCB
+
+MAR 31 2023 - We went to the HAL to work on the PCB
+
+APRIL 3 2023 - We met again in the HAL to work out some accuracy issues with the tachometer
+
+APRIL 4 2023 - Miles and I made some final revisions to the PCB
+
+APRIL 6 2023 - I finished the PCB.

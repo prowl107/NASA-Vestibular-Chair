@@ -16,13 +16,7 @@
 
 1/27/23 - talked to Dr. Garcia about ways to Read the data from the potentiometer
 
-
-
-
-
 2/16/23 - Talked to Dr.Pang on way to implement a PID based control system into the chair and tachometer feedback system. Worked with Dylan to Update the tachometer to use new measurement system. 
-
-
 
 2/23/2023 - Attempted to reinstall Tach into chair.
 
@@ -31,3 +25,11 @@
 3/3/23 - Worked in HAL to attach tachometer to chair. 
 
 3/7/23 - Worked in HAL along with Miles and Kent to attach tachometer to chair and get RPM data from it. 
+
+3/28/23 - class discussion to go over project
+
+3/30/23 - met in HAL to diagnose issues with chair and tachometer 
+
+3/31/23 - met in HAL with Miles, Kent, Matthaeus to resolve program issues for tachometer
+
+4/4/23 - worked on redesign of controller box cad files
